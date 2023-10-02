@@ -1,0 +1,64 @@
+<template>
+
+  <h4 class="title-project">projectSample-App</h4>
+  <p class="description-project">
+    همانطور که می دانید، یکی از مراحل پردازش درخواست های مربوط به App در پارت فریم ورک مرحله کنترل
+    دسترسی می باشد. پارت فریم ورک فرایند کنترل دسترسی را به کمک سامانه مدیریت دسترسی( سمد) انجام می دهد. پارت فریم ورک مسیرهای منتهی
+    به app را منابع سیستم درنظر می گیرد و می بایست دسترسی افراد به آنها کنترل شود. بدین منظور نیاز است مسیرهای app به عنوان
+    منبع(resource) به سامانه سمد اضافه شوند و سپس به نقش های مجاز دسترسی به این منابع داده شود.
+  </p>
+  <p class="description-project">هدف از طراحی این نمونه، آشنایی با نحوه پیاده سازی Appها و فرایند کنترل دسترسی پارت فریم ورک می باشد.</p>
+  <p class="description-project">App پیاده سازی شده در این نمونه، دارای دو function زیر می باشد:</p>
+  <ul class="list">
+    <li class="list-items">دریافت زمان سیستم</li>
+    <p class="description-project">به کمک این api، شما می توانید زمان فعلی سیستم را دریافت نمایید.</p>
+    <li class="list-items">timeout</li>
+    <p class="description-project">timeout api، زمانی را برحسب میلی ثانیه دریافت و پس توقف به میزان آن، زمان سیستم را بازمی گرداند.(بازه زمانی مجاز برای این نمونه، 0 تا 9999 میلی ثانیه می باشد)</p>
+  </ul>
+
+
+
+  <p class="description-project"><b>
+    پیش از اجرای نمونه، مسیر app/myApp/myAppApi/. با دو عملیات GET و POST به سامانه سمد اضافه، و دسترسی به این منابع
+    به نقش visitor  داده شود.
+  </b></p>
+  <button class="inneraccordion get mt-5">GET: Get system time
+    <i class="icon-keyboard_arrow_right"></i>
+  </button>
+  <div class="innerpanel border-top-0 get">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="text-left">
+        <p class="description">API : myAppApi</p>
+        <p class="description mb-5">method : Get</p>
+        <button class="custom-btn btn mt-5" click.delegate="systemTime()">Get Time</button>
+      </div>
+      <div class="p-3 result" value.bind="systemTimeResult">
+        <pre style="text-align: left;" dir=ltr id="json-get"></pre>
+      </div>
+    </div>
+  </div>
+
+  <button class="inneraccordion post">POST: timeout
+    <i class="icon-keyboard_arrow_right"></i>
+  </button>
+  <div class="innerpanel border-top-0 post">
+    <div class="d-flex justify-content-between align-items-center" validation-errors.bind="timeErrors" class.bind="timeErrors.length ? 'has-error' : ''">
+      <div class="d-flex flex-column text-left">
+        <p class="description">API : myAppApi</p>
+        <p class="description mb-5">method : Post</p>
+        <input class="field" type="text" value.bind="timeOut.milisecond & validate" placeholder="Time out"
+               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+               maxlength="4"
+               validation-errors.bind="time_errors">
+        <div>
+          <label repeat.for="errorInfo of timeErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+        </div>
+        <button class="custom-btn btn mt-3" click.delegate="getTimeOut()">Get Time</button>
+      </div>
+      <div class="p-3 result" value.bind="timeOutResult">
+        <pre style="text-align: left;" dir=ltr id="json-post"></pre>
+      </div>
+    </div>
+  </div>
+
+</template>

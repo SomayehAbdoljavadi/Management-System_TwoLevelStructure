@@ -1,0 +1,32 @@
+<template>
+  <button class="accordion">${title}
+    <i class.bind="iconClass"></i>
+  </button>
+  <div class="panel">
+    <button class="inneraccordion get">Get</button>
+    <div class="innerpanel">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="text-left">
+          <p class="description">API : Custom App Api</p>
+          <p class="description mb-5">metode : Custom</p>
+          <button class="custom-btn btn mt-5">Get Time</button>
+        </div>
+        <textarea class="p-3" name="" cols="90" rows="7" placeholder="... نتیجه"></textarea>
+      </div>
+    </div>
+
+    <button class="inneraccordion post">Post</button>
+    <div class="innerpanel">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex flex-column text-left">
+          <p class="description">API : my App Api</p>
+          <p class="description mb-5">metode : Post</p>
+          <input class="field" type="text" placeholder="Time out">
+          <button class="custom-btn btn mt-3">Post Time</button>
+        </div>
+        <textarea class="p-3" name="" cols="90" rows="7" placeholder="... نتیجه"></textarea>
+      </div>
+    </div>
+  </div>
+</template>
+

@@ -1,0 +1,15 @@
+{
+  "moduleType": "project",
+  "name": "sampleproject",
+  "main": "./index.js",
+  "version": "1.0.0",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "js-cookie": "^2.2.1",
+    "partAuthenticationInterface": ">=11.0.0 <12.0.0",
+    "partFramework": ">=9.6.0 <10.0.0",
+    "partJsonValidator": "^6.3.8",
+    "partProfileInterface": ">=11.0.0 <12.0.0",
+    "partSamadInterface": ">=12.0.0 <13.0.0"
+  }
+}

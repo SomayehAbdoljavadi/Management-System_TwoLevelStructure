@@ -1,0 +1,440 @@
+<template>
+  <h4 class="title-project">projectSample-schema</h4>
+  <p class="description-project mt-5">
+    اعتبارسنجی داده های ورودی یک سامانه، از فرایندهای ضروری تامین امنیت یک سامانه به شمار می رود. هدف از طراحی این نمونه، آشنایی
+    با نحوه اعتبارسنجی داده ها بااستفاده از ماژول partJsonValidator می باشد.
+  </p>
+
+  <p class="description-project"><b>
+    پیش از اجرای نمونه، مسیر app/myAppSchema/schemaEasy/. و app/myAppSchema/schemaHard/. با عملیات POST به سامانه سمد اضافه، و دسترسی به این منابع
+    به نقش visitor  داده شود.
+  </b></p>
+  <div pa-busy="is-showing.bind: store._state._value.paLoadings.schemaHard.isShowing ||store._state._value.paLoadings.schemaEasy.isShowing">
+    <button class="accordion post mt-5">POST: schema-hard
+      <i class="icon-keyboard_arrow_right"></i>
+    </button>
+    <div class="panel border-top-0 p-0">
+      <button class="inneraccordion text-right schema">
+        کاربر حقیقی
+      </button>
+      <div class="innerpanel border-top-0 schema py-4">
+        <div class="d-flex justify-content-between align-items-start">
+          <div class="p-3 result" value.bind="schemaHardRealResult">
+            <pre class="text-left" dir=ltr id="json-post-hard-real"></pre>
+          </div>
+          <div class="text-right box-right">
+            <div class="row mb-4" dir="rtl">
+              <div class="col-4">
+                <label for="name">نام :</label>
+              </div>
+              <div class="col-8" validation-errors.bind="firstNameErrors" class.bind="firstNameErrors.length ? 'has-error' : ''">
+                <input class="schema-field mx-3" type="text" name="" placeholder="اجباری ،  فارسی" value.bind="real.firstName & validate"
+                  validation-errors.bind="firstName_errors">
+                <div>
+                  <label repeat.for="errorInfo of firstNameErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4" dir="rtl" validation-errors.bind="lastNameErrors" class.bind="lastNameErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label for="name-parent">نام‌خانوادگی :</label>
+              </div>
+              <div class="col-8">
+                <input class="schema-field mx-3" type="text" name="" id="name-parent" placeholder="اجباری ، فارسی" value.bind="real.lastName & validate"
+                  validation-errors.bind="lastName_errors">
+                <div>
+                  <label repeat.for="errorInfo of lastNameErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4" dir="rtl" validation-errors.bind="idNumberErrors" class.bind="idNumberErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label>شماره شناسنامه :</label>
+              </div>
+              <div class="col-8">
+                <input class="schema-field mx-3" type="text" validation-errors.bind="idNumber_errors" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                  maxlength="10" placeholder=" فرمت استاندارد ، عدد ، رشته " value.bind="real.idNumber & validate">
+                <div>
+                  <label repeat.for="errorInfo of idNumberErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4" dir="rtl" validation-errors.bind="codeMeliErrors" class.bind="codeMeliErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label for="user-name"> کدملی :</label>
+              </div>
+              <div class="col-8">
+                <input class="schema-field mx-3" type="text" name="" id="user-name" value.bind="real.codeMeli & validate" validation-errors.bind="codeMeli_errors"
+                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10" placeholder=" فرمت استاندارد ، عدد ، رشته ">
+                <div>
+                  <label repeat.for="errorInfo of codeMeliErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4" dir="rtl" validation-errors.bind="fatherNameErrors" class.bind="fatherNameErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label for="parent"> نام پدر :</label>
+              </div>
+              <div class="col-8">
+                <input class="schema-field mx-3" type="text" name="" id="parent" value.bind="real.fatherName & validate" validation-errors.bind="fatherName_errors"
+                  placeholder="اجباری ، فارسی یا انگلیسی">
+                <div>
+                  <label repeat.for="errorInfo of fatherNameErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4" dir="rtl" validation-errors.bind="postalCodeErrors" class.bind="postalCodeErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label> کد پستی :</label>
+              </div>
+              <div class="col-8">
+                <input class="schema-field mx-3" type="text" value.bind="real.postalCode & validate" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                  maxlength="10" validation-errors.bind="postalCode_errors" placeholder="فرمت استاندارد کد پستی">
+                <div>
+                  <label repeat.for="errorInfo of postalCodeErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-4" dir="rtl" validation-errors.bind="emailErrors" class.bind="emailErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label for="email"> ایمیل:</label>
+              </div>
+              <div class="col-8">
+                <input class="schema-field mx-3" type="text" name="" id="email" placeholder="اجباری" validation-errors.bind="email_errors"
+                  value.bind="real.email & validate">
+                <div>
+                  <label repeat.for="errorInfo of emailErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+            <div class="row alert">
+              <div class="col-12">
+                <p>تبصره : یکی و فقط یکی از فیلد های شماره شناسنامه یا کدملی باید وارد شوند</p>
+              </div>
+            </div>
+            <div class="mt-4 text-center">
+              <button class="custom-btn btn" click.delegate="schemaHardRequest(real)"> validation  Result</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="inneraccordion text-right schema">
+        کاربر حقوقی
+      </button>
+      <div class="innerpanel border-top-0 schema py-4">
+        <div class="d-flex justify-content-between align-items-start">
+          <div class="p-3 result" value.bind="schemaHardLegalResult">
+            <pre class="text-left" dir=ltr id="json-post-hard-legal"></pre>
+          </div>
+          <div class="text-right box-right">
+            <div class="row mb-4" dir="rtl" validation-errors.bind="companyNameErrors" class.bind="companyNameErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label for="name">نام شرکت :</label>
+              </div>
+              <div class="col-8">
+                <input class="schema-field mx-3" type="text" name="" id="name" value.bind="legal.companyName & validate" validation-errors.bind="companyName_errors"
+                  placeholder="اجباری ، فارسی یا انگلیسی">
+                <div>
+                  <label repeat.for="errorInfo of companyNameErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4" dir="rtl">
+              <div class="col-4">
+                <label> شماره ثبت :</label>
+              </div>
+              <div class="col-8">
+                <input class="schema-field mx-3" type="text" value.bind="legal.registrationNumber">
+              </div>
+            </div>
+            <div class="row mb-4" dir="rtl" validation-errors.bind="legalPostalCodeErrors" class.bind="legalPostalCodeErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label> کدپستی :</label>
+              </div>
+              <div class="col-8">
+                <input class="schema-field mx-3" type="text" placeholder=" عدد ، رشته" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                  maxlength="10" value.bind="legal.postalCode & validate" validation-errors.bind="legalPostalCode_errors">
+                <div>
+                  <label repeat.for="errorInfo of legalPostalCodeErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4" dir="rtl" validation-errors.bind="addressErrors" class.bind="addressErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label for="address"> آدرس :</label>
+              </div>
+              <div class="col-8">
+                <input class="schema-field mx-3" type="text" name="" id="address" value.bind="legal.address & validate" validation-errors.bind="address_errors & validate"
+                  placeholder="رشته فارسی">
+                <div>
+                  <label repeat.for="errorInfo of addressErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+
+            </div>
+            <div class="row mb-4" dir="rtl" validation-errors.bind="legalEmailErrors" class.bind="legalEmailErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label for="email"> ایمیل :</label>
+              </div>
+              <div class="col-8">
+                <input class="schema-field mx-3" type="text" placeholder="اجباری" value.bind="legal.email & validate" validation-errors.bind="legalEmail_errors">
+                <div>
+                  <label repeat.for="errorInfo of legalEmailErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4" dir="rtl" validation-errors.bind="legalPhoneErrors" class.bind="legalPhoneErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label for="number-call"> شماره‌تماس :</label>
+              </div>
+              <div class="col-8">
+                <input class="schema-field mx-3" type="text" name="" id="number-call" placeholder="اجباری" value.bind="legal.phone & validate"
+                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" validation-errors.bind="legalPhone_errors">
+                <div>
+                  <label repeat.for="errorInfo of legalPhoneErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+            <div class="row alert">
+              <div class="col-12">
+                <p>تبصره : اگر کد پستی را وارد کند باید حتما آدرس نیز وارد کند</p>
+              </div>
+            </div>
+            <div class="mt-4 text-center">
+              <button class="custom-btn btn" click.delegate="schemaHardRequest(legal)"> validation  Result</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="accordion post">POST: schema-easy
+      <i class="icon-keyboard_arrow_right"></i>
+    </button>
+    <div class="panel border-top-0 p-0">
+      <button class="inneraccordion text-right schema">
+        اطلاعات کاربر
+      </button>
+      <div class="innerpanel border-top-0 schema py-4">
+        <div class="d-flex justify-content-between align-items-start">
+          <div class="p-3 result" value.bind="schemaEasyResult">
+            <pre class="text-left" dir=ltr id="json-post-easy"></pre>
+          </div>
+          <div class="text-right box-right">
+            <div class="row mb-4" dir="rtl" validation-errors.bind="nameErrors" class.bind="nameErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label for="name">نام :</label>
+              </div>
+              <div class="col-8">
+                <input class="schema-field mx-3" type="text" value.bind="schemaEasy.name & validate" validation-errors.bind="name_errors"
+                  placeholder="اجباری ،انگلیسی">
+                <div>
+                  <label repeat.for="errorInfo of nameErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4" dir="rtl" validation-errors.bind="aliasErrors" class.bind="aliasErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label for="name-two">نام‌مستعار :</label>
+              </div>
+              <div class="col-8">
+                <input class="schema-field mx-3" type="text" name="" id="name-two" placeholder="اجباری ، حروف فارسی "
+                  value.bind="schemaEasy.alias & validate" validation-errors.bind="alias_errors">
+                <div>
+                  <label repeat.for="errorInfo of aliasErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4" dir="rtl" validation-errors.bind="birthdayErrors" class.bind="birthdayErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label for="date">تاریخ تولد:</label>
+              </div>
+              <div class="col-8">
+                <input class="schema-field mx-3" type="text" name="" id="date" placeholder="اجباری ، به فرمت تاریخ " value.bind="schemaEasy.birthday & validate"
+                  validation-errors.bind="birthday_errors">
+                <div>
+                  <label repeat.for="errorInfo of birthdayErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4" dir="rtl" validation-errors.bind="idNumberSchemaEasyErrors" class.bind="idNumberSchemaEasyErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label> شماره‌شناسنامه :</label>
+              </div>
+              <div class="col-8">
+                <input class="schema-field mx-3" type="text" placeholder=" اجباری ،  10 رقمی و بدون خط تیره" value.bind="schemaEasy.idNumber & validate"
+                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" validation-errors.bind="idNumberSchemaEasy_errors">
+                <div>
+                  <label repeat.for="errorInfo of idNumberSchemaEasyErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-4" dir="rtl" validation-errors.bind="genderErrors" class.bind="genderErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label> جنسیت :</label>
+              </div>
+              <div class="col-8">
+                <select class="schema-field mx-3 select" name="select" value.bind="schemaEasy.gender & validate" validation-errors.bind="gender_errors">
+                  <option value="" disabled="" selected="" hidden="">انتخاب کنید</option>
+                  <option value="male">مرد</option>
+                  <option value="female">زن</option>
+                </select>
+                <div>
+                  <label repeat.for="errorInfo of genderErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row mb-4" dir="rtl" validation-errors.bind="maritalStatusErrors" class.bind="maritalStatusErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label> وصعیت‌تاهل :</label>
+              </div>
+              <div class="col-8">
+                <select class="schema-field mx-3 select" name="select" value.bind="schemaEasy.maritalStatus & validate" validation-errors.bind="maritalStatus_errors">
+                  <option value="" disabled="" selected="" hidden="">انتخاب کنید</option>
+                  <option value="bachelor">مجرد</option>
+                  <option value="married">متاهل</option>
+                  <!--<option value="divorcee">مطلقه</option>-->
+                </select>
+                <div>
+                  <label repeat.for="errorInfo of maritalStatusErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-4" dir="rtl" validation-errors.bind="identityNumberErrors" class.bind="identityNumberErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label for="user-name"> کد‌ملی :</label>
+              </div>
+              <div class="col-8">
+                <input class="schema-field mx-3" placeholder="اجباری ، به صورت عددصحیح  " value.bind="schemaEasy.identityNumber & validate"
+                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" validation-errors.bind="identityNumber_errors">
+                <div>
+                  <label repeat.for="errorInfo of identityNumberErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-4" dir="rtl" validation-errors.bind="schemaEasyEmailErrors" class.bind="schemaEasyEmailErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label for="email"> ایمیل:</label>
+              </div>
+              <div class="col-8">
+                <input class="schema-field mx-3" type="text" placeholder="اجباری" value.bind="schemaEasy.email & validate" validation-errors.bind="schemaEasyEmail_errors">
+                <div>
+                  <label repeat.for="errorInfo of schemaEasyEmailErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4" dir="rtl" validation-errors.bind="mobilesErrors" class.bind="mobilesErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label for="mobile"> موبایل:</label>
+              </div>
+              <div class="col-8">
+                <input class="schema-field mx-3" type="text" name="" id="mobile" placeholder="اجباری ، شامل تعدادی شماره موبایل "
+                  value.bind="schemaEasy.mobiles & validate" validation-errors.bind="mobiles_errors">
+                <div>
+                  <label repeat.for="errorInfo of mobilesErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4" dir="rtl" validation-errors.bind="phoneNumberErrors" class.bind="phoneNumberErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label for="number-phone"> شماره تلفن:</label>
+              </div>
+              <div class="col-8">
+                <input class="schema-field mx-3" type="text" name="" id="number-phone" placeholder="اجباری" value.bind="schemaEasy.phoneNumber & validate"
+                  validation-errors.bind="phoneNumber_errors">
+                <div>
+                  <label repeat.for="errorInfo of phoneNumberErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row mb-4" dir="rtl">
+              <div class="col-4">
+                <label for="user-status"> وضعیت کاربر:</label>
+              </div>
+              <div class="col-8">
+                <label class="d-flex" for="user-status">
+                  <input id="user-status" type="checkbox" class="filled-in mx-3" checked="checked" checked.bind="schemaEasy.isActive">
+                  <span class="mx-3"></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="row mb-4" dir="rtl" validation-errors.bind="companyErrors" class.bind="companyErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label for="name-sh"> نام شرکت:</label>
+              </div>
+              <div class="col-8">
+                <input class="schema-field mx-3" type="text" name="" id="name-sh" placeholder="اجباری ،شامل حروف انگلیسی و فارسی" value.bind="schemaEasy.job.company & validate"
+                  validation-errors.bind="company_errors">
+                <div>
+                  <label repeat.for="errorInfo of companyErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4" dir="rtl" validation-errors.bind="postErrors" class.bind="postErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label for="Job-position"> سمت شغلی :</label>
+              </div>
+              <div class="col-8">
+                <input class="schema-field mx-3" type="text" name="" id="Job-position" placeholder="اجباری ، شامل حروف انگلیسی و فارسی"
+                  value.bind="schemaEasy.job.post & validate" validation-errors.bind="job_Post_errors">
+                <div>
+                  <label repeat.for="errorInfo of postErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4" dir="rtl" validation-errors.bind="startErrors" class.bind="startErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label for="date-start"> تاریخ شروع‌کار :</label>
+              </div>
+              <div class="col-8">
+                <input class="schema-field mx-3" type="text" name="" id="date-start" placeholder="اجباری و به فرمت تاریخ" value.bind="schemaEasy.job.start & validate"
+                  validation-errors.bind="start_errors">
+                <div>
+                  <label repeat.for="errorInfo of startErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4" dir="rtl" validation-errors.bind="averageSalaryErrors" class.bind="averageSalaryErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label for="average-salary"> میانگین حقوق :</label>
+              </div>
+              <div class="col-8">
+                <input class="schema-field mx-3" type="text" name="" id="average-salary" placeholder="اجباری و به صورت عدد صحیح" value.bind="schemaEasy.job.averageSalary & validate"
+                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" validation-errors.bind="averageSalary_errors">
+                <div>
+                  <label repeat.for="errorInfo of averageSalaryErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4" dir="rtl" validation-errors.bind="phonesErrors" class.bind="phonesErrors.length ? 'has-error' : ''">
+              <div class="col-4">
+                <label for="nember-phone-two"> شماره تلفن :</label>
+              </div>
+              <div class="col-8">
+                <input class="schema-field mx-3" type="text" name="" id="nember-phone-two" placeholder="اجباری و شامل تعدادی شماره تلفن"
+                  value.bind="schemaEasy.job.phones & validate" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                  validation-errors.bind="phones_errors">
+                <div>
+                  <label repeat.for="errorInfo of phonesErrors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4 text-center">
+              <button class="custom-btn btn" click.delegate="schemaEasyRequest()">  validation Result</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,41 @@
+// Themes
+$themes: (
+    light: (
+        'white':#ffffff,
+        'black': #000000,
+        'primary': #2a3f54,
+        'secondary': #1ABB9C,
+        'blue01': #007bff,
+    ),
+    dark: (
+        'white': #000000,
+        'black':#ffffff,
+        'primary': #1ABB9C,
+        'secondary': #2a3f54,
+        'blue01': #007bff,
+    ),
+);
+
+
+$width-sidebar : 240px;
+$height-header : 55px;
+$height-header-mobile : 45px;
+$color-primary : rgb(94, 69, 131);
+$width-tooltip: 300px;
+$danger: red;
+
+
+// PartFontIcon Variables
+$icomoon-font-family: "PartFontIcon" !default;
+$icomoon-font-path: "../fonts/fonticon" !default;
+
+$icon-circle-with-cross: "\e907";
+$icon-add-solid: "\e904";
+$icon-cloud-upload: "\e906";
+$icon-corner-up-left: "\e909";
+$icon-edit: "\e901";
+$icon-minus-circle: "\e902";
+$icon-plus-circle: "\e903";
+$icon-trash-2: "\e905";
+$icon-check_circle: "\e908";
+$icon-keyboard_arrow_right: "\e900";

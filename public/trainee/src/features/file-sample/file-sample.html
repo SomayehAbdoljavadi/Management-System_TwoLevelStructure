@@ -1,0 +1,55 @@
+getPicture
+<template>
+  <h4 class="title-project">projectSample-file</h4>
+  <p class="description-project">
+    پارت فریم ورک برای  بازگرداندن فایل ها، از ماژول fs استفاده می نماید.
+  </p>
+  <p class="description-project">هدف از طراحی این نمونه app، نمایش نحوه به کارگیری پارت فریم ورک در  بازگردانی فایل ها می باشد.</p>
+
+  <p class="description-project">Handler پیاده سازی شده در این app، فایل هایی با فرمت های png. ، txt. و xlsx. بازمی گرداند.</p>
+
+
+  <p class="description-project"><b>
+    پیش از اجرای نمونه، مسیر های app/myAppFile/getPictureApi.png/. و app/myAppFile/getFileApi.txt/. و app/myAppFile/getFileApi.xlsx/. با عملیات GET  به سامانه سمد اضافه، و دسترسی به این منابع
+    به نقش visitor  داده شود.
+  </b></p>
+
+  <button class="inneraccordion get mt-5">Get : download picture file
+    <i class="icon-keyboard_arrow_right"></i>
+  </button>
+  <div class="innerpanel border-top-0 get">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="text-left">
+        <p class="description">API : getPictureApi.png</p>
+        <p class="description mb-5">method : Get</p>
+        <button class="custom-btn btn mt-5" click.delegate="getPicture()">Get .Png File</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="inneraccordion get">Get : download text file
+    <i class="icon-keyboard_arrow_right"></i>
+  </button>
+  <div class="innerpanel border-top-0 get">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="text-left">
+        <p class="description">API : getFileApi.txt</p>
+        <p class="description mb-5">method : Get</p>
+        <button class="custom-btn btn mt-5" click.delegate="getTxtFile()">Get .Txt File</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="inneraccordion get">Get : download excel file
+    <i class="icon-keyboard_arrow_right"></i>
+  </button>
+  <div class="innerpanel border-top-0 get">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="text-left">
+        <p class="description">API : getFileApi.xlsx</p>
+        <p class="description mb-5">method : Get</p>
+        <button class="custom-btn btn mt-5" click.delegate="getExcelFile()">Get .Xlsx File</button>
+      </div>
+    </div>
+  </div>
+</template>

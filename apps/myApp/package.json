@@ -1,0 +1,10 @@
+{
+  "moduleType": "app",
+  "name": "appTemplate",
+  "version": "1.0.0",
+  "main": "./index.js",
+  "dependencies": {
+    "partLogger": ">=5.0.0 <6.0.0",
+    "partUtilities": ">=5.0.0 <6.0.0"
+  }
+}

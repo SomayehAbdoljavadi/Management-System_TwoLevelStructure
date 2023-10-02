@@ -1,0 +1,59 @@
+html {
+  font: 13px iranyekan !important;
+}
+
+body {
+  overflow-y: auto;
+  font: inherit;
+
+  &.disable-scroll{
+    overflow: hidden;
+  }
+}
+.main{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  height: auto;
+
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-right: auto;
+    padding: 0 15px 10px 15px;
+    padding-top: calc(20px + #{$height-header-mobile}) ;
+    background-color: #F0F3F6;
+    transition: all 0.3s;
+    @include breakpoint(small){
+      padding: 0 30px 10px 30px;
+    padding-top: calc(40px + #{$height-header-mobile}) ;
+    }
+
+    @include breakpoint(large){
+      width: calc(100% - #{$width-sidebar});
+    }
+    @include breakpoint(ultra){
+      padding: 25px 110px 20px 80px;
+      // padding-top: calc(45px + #{$height-header}) ;
+    }
+
+    &.collapsed-sidebar {
+      margin-left: 0;
+      filter: blur(3px);
+      @include breakpoint(large){
+        margin-left: initial;
+        width: calc(100% - 70px);
+        filter: unset;
+      }
+    }
+
+    .main-wrapper {
+      flex: 1 1 100%;
+      margin: 0 0 60px 0;
+    }
+  }
+}
+

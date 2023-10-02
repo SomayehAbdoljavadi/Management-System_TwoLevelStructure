@@ -1,0 +1,58 @@
+<template>
+  <h4 class="title-project">projectSample-config</h4>
+  <p class="description-project">
+    همانطور که می دانید، پارت فریم ورک امکان ایجاد چند نمونه از یک ماژول با پیکربندی های متفاوت
+    را دارد.
+  </p>
+  <p class="description-project">هدف از طراحی این نمونه، نمایش نحوه استفاده از یک سرویس با پیکربندی های متفاوت می باشد.
+  </p>
+  <p class="description-project">Handler پیاده سازی شده در این app،با تعریف پیکربندی های متفاوت برای سامانه مدیریت دسترسی، یک کاربر را در دو سامانه مجزا ثبت نام می
+    کند.</p>
+
+
+  <p class="description-project"><b>
+    پیش از اجرای نمونه، مسیر های app/myFirstAppConfig/serviceConfigApi/. و app/mySecondAppConfig/serviceConfigApi/.  با عملیات PUT  به سامانه سمد اضافه، و دسترسی به این منابع
+    به نقش visitor  داده شود.
+  </b></p>
+
+  <button class="inneraccordion put mt-5">PUT: add user to partServiceSamad with first Config
+    <i class="icon-keyboard_arrow_right"></i>
+  </button>
+  <div class="innerpanel border-top-0 put">
+    <div class="d-flex justify-content-between align-items-center" validation-errors.bind="userName1Errors" class.bind="userName1Errors.length ? 'has-error' : ''">
+      <div class="d-flex flex-column text-left">
+        <p class="description">API : serviceConfigApi</p>
+        <p class="description mb-5">method : Put</p>
+        <input class="field" type="text" placeholder="User" value.bind="firstConfig.username & validate" validation-errors.bind="userName1_errors">
+
+        <div>
+          <label repeat.for="errorInfo of userName1Errors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+        </div>
+        <button class="custom-btn btn mt-3" click.delegate="setFirstConfig()">add to first org </button>
+      </div>
+      <div class="p-3 result" value.bind="firstConfigResult">
+        <pre class="text-left" dir=ltr id="json-put"></pre>
+      </div>
+    </div>
+  </div>
+
+  <button class="inneraccordion put">PUT: add user to partServiceSamad with second Config
+    <i class="icon-keyboard_arrow_right"></i>
+  </button>
+  <div class="innerpanel border-top-0 put">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex flex-column text-left" validation-errors.bind="userName2Errors" class.bind="userName2Errors.length ? 'has-error' : ''">
+        <p class="description">API : serviceConfigApi</p>
+        <p class="description mb-5">method : Put</p>
+        <input class="field" type="text" placeholder="User" value.bind="secondConfig.username & validate" validation-errors.bind="userName2_errors">
+        <div>
+          <label repeat.for="errorInfo of userName2Errors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+        </div>
+        <button class="custom-btn btn mt-3" click.delegate="setSecondConfig()">add to second org</button>
+      </div>
+      <div class="p-3 result" value.bind="secondConfigResult">
+        <pre class="text-left" dir=ltr id="json-put-second"></pre>
+      </div>
+    </div>
+  </div>
+</template>

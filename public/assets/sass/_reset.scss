@@ -1,0 +1,156 @@
+// custom material checkbox 
+[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+[type="checkbox"] {
+    +span {
+        position: relative;
+        padding-right: 25px;
+        cursor: pointer;
+        display: inline-block;
+        height: 25px;
+        line-height: 25px;
+        font-size: 1rem;
+        user-select: none;
+    }
+    +span:not(.lever):before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 18px;
+        height: 18px;
+        z-index: 0;
+        border: 2px solid #fd4f0a;
+        border-radius: 1px;
+        margin-top: 3px;
+        transition: .2s;
+    }
+    &:not(.filled-in)+span:not(.lever):after {
+        border: 0;
+        transform: scale(0);
+    }
+    &:not(:checked):disabled+span:not(.lever):before {
+        border: none;
+        background-color: yellow;
+    }
+    &.tabbed:focus+span:not(.lever):after {
+        transform: scale(1);
+        border: 0;
+        border-radius: 50%;
+        box-shadow: 0 0 0 10px rgba(0, 0, 0, .1);
+        background-color: rgba(0, 0, 0, .1);
+    }
+}
+
+[type="checkbox"]:checked {
+    +span:not(.lever):before {
+        content: "";
+        top: -4px; //   left: -5px;
+        width: 12px;
+        height: 22px;
+        border-top: 2px solid transparent;
+        border-left: 2px solid transparent;
+        border-right: 2px solid #fd4f0a;
+        border-bottom: 2px solid #fd4f0a;
+        transform: rotate(40deg);
+        backface-visibility: hidden;
+        transform-origin: 100% 100%;
+    }
+    &:disabled+span:before {
+        border-right: 2px solid #fd4f0a;
+        border-bottom: 2px solid #fd4f0a;
+    }
+}
+
+[type="checkbox"].filled-in {
+    +span:not(.lever):after {
+        border-radius: 2px;
+    }
+    +span:not(.lever):before,
+    +span:not(.lever):after {
+        content: '';
+        right: 0;
+        position: absolute;
+        transition: border .25s, background-color .25s, width .20s .1s, height .20s .1s, top .20s .1s, left .20s .1s;
+        z-index: 1;
+    }
+    &:not(:checked)+span:not(.lever):before {
+        width: 0;
+        height: 0;
+        border: 3px solid transparent;
+        right: 10px;
+        top: 10px;
+        transform: rotateZ(37deg);
+        transform-origin: 100% 100%;
+    }
+    &:not(:checked)+span:not(.lever):after {
+        height: 18px;
+        width: 18px;
+        background-color: transparent;
+        border: 2px solid #fd4f0a;
+        top: 0px;
+        z-index: 0;
+        border-radius: 3px;
+    }
+    &:checked {
+        +span:not(.lever):before {
+            top: -1px;
+            right: 10px;
+            width: 7px;
+            height: 12px;
+            border-top: 2px solid transparent;
+            border-left: 2px solid transparent;
+            border-right: 2px solid $gray-100;
+            border-bottom: 2px solid $gray-100;
+            transform: rotateZ(37deg);
+            transform-origin: 100% 100%;
+        }
+        +span:not(.lever):after {
+            top: 0;
+            height: 18px;
+            width: 18px;
+            border: 2px solid #fd4f0a;
+            background-color: #fd4f0a;
+            z-index: 0;
+            border-radius: 3px;
+        }
+    }
+    &.tabbed:focus+span:not(.lever):after {
+        border-radius: 2px;
+        border-color: #fd4f0a;
+        background-color: rgba(0, 0, 0, .1);
+    }
+    &.tabbed:checked:focus+span:not(.lever):after {
+        border-radius: 2px;
+        background-color: #fd4f0a;
+        border-color: #fd4f0a;
+    }
+    &:disabled:not(:checked)+span:not(.lever):before {
+        background-color: transparent;
+        border: 2px solid transparent;
+    }
+    &:disabled:not(:checked)+span:not(.lever):after {
+        border-color: #e1e7ed;
+        background-color: #e1e7ed;
+    }
+    &:disabled:checked+span:not(.lever):before {
+        background-color: transparent;
+    }
+    &:disabled:checked+span:not(.lever):after {
+        background-color: lighten(#fd4f0a, 15%);
+        border-color: lighten(#fd4f0a, 15%);
+    }
+    &:disabled:checked+span{
+        cursor: not-allowed;
+        color: #999;
+    }
+    &:disabled:not(:checked)+span{
+        cursor: not-allowed;
+        color: #999;
+    }
+}

@@ -1,0 +1,91 @@
+<template>
+  <h4 class="title-project">projectSample-session</h4>
+  <p class="description-project">
+    همانطور که می دانید، پارت فریم ورک برای ارائه خدمات مربوط به session از ماژول partSessionManager
+    استفاده می کند.
+  </p>
+  <p class="description-project">هدف از طراحی این نمونه آشنایی با نحوه استفاده از session در پارت فریم ورک می باشد.</p>
+  <p class="description-project">App پیاده سازی شده در این نمونه، دارای handler هایی است که فرایندهای زیر را انجام می دهد:
+  </p>
+  <ul class="list">
+    <li class="list-items">ذخیره داده در session</li>
+    <p class="description-project"> اینapi، دو کلید دریافت و آنها را در Session ذخیره می نماید.</p>
+    <li class="list-items">دریافت داده های session</li>
+    <p class="description-project">به کمک این Api، می توان مقادیر ذخیره شده در session را دریافت نمود. </p>
+    <li class="list-items">حذف session</li>
+    <p class="description-project">با استفاده از این Api، می توان session را حذف نمود.</p>
+  </ul>
+
+
+
+
+  <p class="description-project"><b>
+    پیش از اجرای نمونه، مسیر app/myAppSession/appSessionApi/. با سه عملیات GET و POST و DELETE به سامانه سمد اضافه، و دسترسی به این منابع
+    به نقش visitor  داده شود.
+  </b></p>
+
+  <p class="description-project"><b>
+    و در انتها پیش از اجرای redis، sample را برای ذخیره سازی session اجرا کنید.
+  </b></p>
+
+  <button class="inneraccordion post mt-5">POST: save data in session
+    <i class="icon-keyboard_arrow_right"></i>
+  </button>
+  <div class="innerpanel border-top-0 post">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex flex-column text-left">
+        <p class="description">API : AppSessionApi</p>
+        <p class="description">method : Post</p>
+        <div validation-errors.bind="key1Errors" class.bind="key1Errors.length ? 'has-error' : ''">
+          <input class="field" type="text" placeholder="my key 1" value.bind="sessionData.key1 & validate" validation-errors.bind="key1_errors">
+          <div>
+            <label repeat.for="errorInfo of key1Errors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+          </div>
+        </div>
+
+        <div validation-errors.bind="key2Errors" class.bind="key2Errors.length ? 'has-error' : ''">
+          <input class="field mt-3" type="text" placeholder="my key 2" value.bind="sessionData.key2 & validate" validation-errors.bind="key2_errors">
+          <div>
+            <label repeat.for="errorInfo of key2Errors" class="error-message text-danger mt-4">${errorInfo.error.message}</label>
+          </div>
+        </div>
+        <button class="custom-btn btn mt-3" click.delegate="saveDataInSession()">Save To Session</button>
+      </div>
+      <div class="p-3 result" value.bind="saveDataInSessionResult">
+        <pre style="text-align: left;" dir=ltr id="json-post"></pre>
+      </div>
+    </div>
+  </div>
+
+  <button class="inneraccordion get">GET: get data
+    <i class="icon-keyboard_arrow_right"></i>
+  </button>
+  <div class="innerpanel border-top-0 get">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="text-left">
+        <p class="description">API : AppSessionApi</p>
+        <p class="description mb-5">method : Get</p>
+        <button class="custom-btn btn mt-5" click.delegate="getDataFromSession()">Get Session</button>
+      </div>
+      <div class="p-3 result" value.bind="getDataFromSessionResult">
+        <pre style="text-align: left;" dir=ltr id="json-get"></pre>
+      </div>
+    </div>
+  </div>
+
+  <button class="inneraccordion delete">DELETE: remove session
+    <i class="icon-keyboard_arrow_right"></i>
+  </button>
+  <div class="innerpanel border-top-0 delete">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="text-left">
+        <p class="description">API : AppSessionApi</p>
+        <p class="description mb-5">method : Delete</p>
+        <button class="custom-btn btn mt-5" click.delegate="removeSession()">Remove Session</button>
+      </div>
+      <div class="p-3 result" value.bind="removeSessionResult">
+        <pre style="text-align: left;" dir=ltr id="json-delete"></pre>
+      </div>
+    </div>
+  </div>
+</template>

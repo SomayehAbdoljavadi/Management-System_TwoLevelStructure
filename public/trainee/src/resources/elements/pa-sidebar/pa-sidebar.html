@@ -1,0 +1,90 @@
+<template>
+
+  <aside class="main-sidebar">
+    <div class="inner-scroll">
+      <header class="header">
+        <!-- <a href="#/" class="logo">
+          <figure class="image">
+            <img src="./logo-part.png" alt="">
+          </figure>
+          <span class="english-name">
+            Part Software Group
+          </span>
+        </a> -->
+
+
+        <div class="logo-row">
+          <figure class="logo">
+            <img src="./logo.png" alt="">
+
+          </figure>
+          <div class="logo-label">
+            <img src="./logo-label.png" alt="">
+            <span class="english-name">
+              Part Software Group
+            </span>
+          </div>
+
+        </div>
+      </header>
+
+      <div class="content-wrapper">
+
+
+        <ul class="navigator">
+
+          <li repeat.for="nav of arrayRoutes" class="item ${ (selected === $index ) ? 'open' : '' }" index.bind="$index">
+            <a class="item-title ${ (selected === $index) ? 'active' : '' }" class.bind="nav.showSubMenu ? 'has-submenu' : '' " click.delegate="clicked('',nav.href,$index,'')">
+              <span class="text">${nav.title}</span>
+            </a>
+          </li>
+          <!-- <li class="item">
+            <a href="#app-sample" class="item-title" role="button">
+              <span class="text">App sample</span>
+            </a>
+          </li>
+          <li class="item">
+            <a href="#session-sample" class="item-title"  role="button">
+              <span class="text">Session sample</span>
+            </a>
+          </li>
+          <li class="item">
+            <a href="#roles-sample" class="item-title">
+              <span class="text">Roles sample</span>
+            </a>
+          </li>
+          <li class="item">
+            <a href="#services-sample" class="item-title">
+              <span class="text">Services sample</span>
+            </a>
+          </li>
+          <li class="item">
+            <a href="#file-sample" class="item-title">
+              <span class="text">File sample</span>
+            </a>
+          </li>
+          <li class="item">
+            <a href="#config-sample" class="item-title" role="button">
+              <span class="text">Config sample</span>
+            </a>
+          </li>
+          <li class="item">
+            <a href="#cluster-sample" class="item-title" role="button">
+              <span class="text">Cluster sample</span>
+            </a>
+          </li>
+          <li class="item">
+            <a href="#proxy-sample" class="item-title" role="button">
+              <span class="text">Proxy sample</span>
+            </a>
+          </li> -->
+          <!-- <li class="item">
+            <a href="#" class="item-title" role="button">
+              <span class="text">File sample</span>
+            </a>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+  </aside>
+</template>
